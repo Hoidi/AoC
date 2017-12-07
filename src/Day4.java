@@ -3,20 +3,108 @@ import java.util.Arrays;
 public class Day4 {
 
     public static void main(String[] args) {
+        String[][] test1 = {{"aa","bb","cc","dd"}};
+        String[][] test2 = {{"ab","bb","cc","ba"}};
+        String[][] test3 = {{"aa","bb","cc","dd"},
+                            {"aa","bb","cc","aa"},
+                            {"aa","bb","cc","aaa"},
+                            {"aa","bb","ccb","aa"}};
+
         String[][] input = createInput();
 
         int result1 = validPhrases(input);
+        //System.out.println(result1);
 
-        System.out.println(Arrays.toString(input[0]));
+        int result2 = validAnagrams(test2);
+        System.out.println(result2);
+
+
+        //System.out.println(Arrays.toString(input[0]));
 
         int[] arr = {1};
-
-
 
     }
 
     private static int validPhrases(String[][] input) {
-        return 1;
+        int result = 0;
+        for(int row = 0; row < input.length; row++ ) {
+            for(int wordIndex = 0; wordIndex < input[row].length; wordIndex++) {
+                if(contrains(input[row][wordIndex], input[row])) {
+                    // If
+                    break;
+                }
+                if(wordIndex == input[row].length-1) {
+                    result++;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean contrains(String string,String[] arr) {
+        boolean hasFoundOnce = false;
+        for(int i = 0; i < arr.length; i++) {
+            if(string.equals(arr[i])) {
+                if(hasFoundOnce) {
+                    return true;
+                }
+                hasFoundOnce = true;
+            }
+        }
+        return false;
+    }
+
+    private static int validAnagrams(String[][] input) {
+        int result = 0;
+        for(int row = 0; row < input.length; row++ ) {
+            for(int wordIndex = 0; wordIndex < input[row].length; wordIndex++) {
+                if(isAnagram(input[row][wordIndex], input[row])) {
+                    // If
+                    break;
+                }
+                if(wordIndex == input[row].length-1) {
+                    result++;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean isAnagram(String string,String[] arr) {
+        boolean hasFoundOnce = false;   // It's the exact same word
+        for(int i = 0; i < arr.length; i++) {
+            if(!isAnagramWord(string,arr[i])) {
+                if(hasFoundOnce) {
+                    return false;
+                }
+                hasFoundOnce = true;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isAnagramWord(String word1, String word2) {
+        if(word1.length() != word2.length()) {
+            return false;
+        }else {
+            for(int i = 0; i < word2.length(); i++) {
+                if(!containsLetter(word1,word2.charAt(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean containsLetter(String word1, char c) {
+        for(int i = 0; i < word1.length(); i++) {
+            if(!(word1.charAt(i) == c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -532,7 +620,7 @@ public class Day4 {
                 "piyl haajm stwzpp xvjg amjah\n" +
                 "gye efwwwiv kyv zmtcgmi ifwvwew\n" +
                 "dflx gdtb jyoj jyoj dflx aqhycgi xffnn\n" +
-                "inc mpys mzqmcwx vryz ibqrzc pmsy fat rojpxwy rcbqzi gjef\n";
+                "inc mpys mzqmcwx vryz ibqrzc pmsy fat rojpxwy rcbqzi gjef";
 
         String[] halfwayThere = start.split("\n");
 
@@ -544,5 +632,7 @@ public class Day4 {
 
         return matrix;
     }
+
+
 
 }
