@@ -1,10 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Day8 {
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
+        List<String> input = createInput();
 
+
+    }
+
+    private static int biggestValue(List<String> list) {
+        Map<String, Integer> myMap = new HashMap<String, Integer>();
+        String[] doThis = {"inc","dec"};
+        String[] compare = {"<",">","<=",">=","==","!="};
+        final int nameIndex = 0;
+        final int doThisIndex = 1;
+        final int numberIndex = 2;
+        final int compareNameIndex = 4;
+        final int compareIndex = 5;
+        final int compareNumberIndex = 6;
+
+
+        for(int i = 0; i < list.size(); i++) {
+            String[] currentText = list.get(i).split("\n");
+            String nameText = currentText[nameIndex];
+            String doThisText = currentText[doThisIndex];
+            String numberText = currentText[numberIndex];
+            String compareNameText = currentText[compareNameIndex];
+            String compareText = currentText[compareIndex];
+            String compareNumberText = currentText[compareNumberIndex];
+
+            // TODO: Har mapen namnet redan?
+        }
+
+        return 0;
     }
 
     private static List<String> createInput() {
@@ -1011,15 +1039,13 @@ public class Day8 {
 
         String[] arr = start.split("\n");
 
-        List<String> list = fromArrToList(arr);
-
-        return list;
+        return fromArrToList(arr);
     }
 
     private static List<String> fromArrToList(String[] arr) {
         List<String> list = new ArrayList<String>();
 
-        //TODO Do shit
+        list.addAll(Arrays.asList(arr));
 
         return list;
     }
