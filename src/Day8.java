@@ -5,13 +5,16 @@ public class Day8 {
     public static void main(String[] args) {
         List<String> input = createInput();
 
+        int result1 = biggestValue(input);
+
+        System.out.println(result1);
+
+        //6088 is too high
 
     }
 
     private static int biggestValue(List<String> list) {
         Map<String, Integer> myMap = new HashMap<String, Integer>();
-        String[] doThis = {"inc","dec"};
-        String[] compare = {"<",">","<=",">=","==","!="};
         final int nameIndex = 0;
         final int doThisIndex = 1;
         final int numberIndex = 2;
@@ -21,7 +24,7 @@ public class Day8 {
 
 
         for(int i = 0; i < list.size(); i++) {
-            String[] currentText = list.get(i).split("\n");
+            String[] currentText = list.get(i).split(" ");
             String nameText = currentText[nameIndex];
             String doThisText = currentText[doThisIndex];
             String numberText = currentText[numberIndex];
@@ -29,10 +32,83 @@ public class Day8 {
             String compareText = currentText[compareIndex];
             String compareNumberText = currentText[compareNumberIndex];
 
-            // TODO: Har mapen namnet redan?
+            if(!myMap.containsKey(nameText)) {  // Does the name already exist in map?
+                myMap.put(nameText,0);
+            }
+            if(!myMap.containsKey(compareNameText)) {    // Next thing is not in map
+                myMap.put(compareNameText, 0);
+            }
+            // Now both elements are in map for sure
+
+            if(compareText.equals("<")) {
+                if(myMap.get(compareNameText) < Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else if(compareText.equals(">")) {
+                if(myMap.get(compareNameText) > Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else if(compareText.equals("<=")) {
+                if(myMap.get(compareNameText) <= Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else if(compareText.equals(">=")) {
+                if(myMap.get(compareNameText) >= Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else if(compareText.equals("==")) {
+                if(myMap.get(compareNameText) == Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else if(compareText.equals("!=")) {
+                if(myMap.get(compareNameText) != Integer.parseInt(compareNumberText)) {
+                    if(doThisText.equals("inc")) {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    } else {
+                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                    }
+                }
+            }else {
+                System.out.println("Something went wrong");
+            }
+
         }
 
-        return 0;
+
+
+        return findBiggestValue(myMap);
+    }
+
+    private static int findBiggestValue(Map<String, Integer> map) {
+        int biggestValue = 0;
+
+        for (Integer value : map.values()) {
+            if (value > biggestValue) {
+                biggestValue = value;
+            }
+        }
+
+        return biggestValue;
     }
 
     private static List<String> createInput() {
