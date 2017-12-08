@@ -95,7 +95,6 @@ public class Day8 {
         }
 
 
-
         return findBiggestValue(myMap);
     }
 
