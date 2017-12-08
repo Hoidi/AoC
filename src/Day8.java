@@ -21,6 +21,7 @@ public class Day8 {
         final int compareNameIndex = 4;
         final int compareIndex = 5;
         final int compareNumberIndex = 6;
+        int bigNumber = 0;
 
 
         for(int i = 0; i < list.size(); i++) {
@@ -45,7 +46,7 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else if(compareText.equals(">")) {
@@ -53,7 +54,7 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else if(compareText.equals("<=")) {
@@ -61,7 +62,7 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else if(compareText.equals(">=")) {
@@ -69,7 +70,7 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else if(compareText.equals("==")) {
@@ -77,7 +78,7 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else if(compareText.equals("!=")) {
@@ -85,15 +86,19 @@ public class Day8 {
                     if(doThisText.equals("inc")) {
                         myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
                     } else {
-                        myMap.put(nameText, myMap.get(nameText) + Integer.parseInt(numberText));
+                        myMap.put(nameText, myMap.get(nameText) - Integer.parseInt(numberText));
                     }
                 }
             }else {
                 System.out.println("Something went wrong");
             }
 
-        }
+            if (myMap.get(nameText) > bigNumber) {
+                bigNumber = myMap.get(nameText);
+            }
 
+        }
+        System.out.println("bop" + bigNumber);
 
         return findBiggestValue(myMap);
     }
