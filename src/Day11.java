@@ -12,8 +12,8 @@ public class Day11 {
         String[] test5 = {"n","n","s","s"};
 
 
-        length(test1);
-        length(test2);
+        //length(test1);
+        //length(test2);
         length(test3);
         length(test4);
         length(test5);
@@ -32,15 +32,12 @@ public class Day11 {
     private static void length(String[] input) {
         Directions dir = new Directions();
 
-        for(int i = 0; i <  input.length; i++) {
+        for(int i = 0; i < input.length; i++) {
             if(input[i].equals("n")) {
                 dir.incNorth();
             }
             else if(input[i].equals("ne")) {
                 dir.incNorthEast();
-            }
-            else if(input[i].equals("e")) {
-                dir.incEast();
             }
             else if(input[i].equals("se")) {
                 dir.incSouthEast();
@@ -50,9 +47,6 @@ public class Day11 {
             }
             else if(input[i].equals("sw")) {
                 dir.incSouthWest();
-            }
-            else if(input[i].equals("w")) {
-                dir.incWest();
             }
             else if(input[i].equals("nw")) {
                 dir.incNorthWest();
