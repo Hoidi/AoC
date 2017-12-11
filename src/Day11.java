@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Day11 {
@@ -12,8 +15,8 @@ public class Day11 {
         String[] test5 = {"n","n","s","s"};
 
 
-        //length(test1);
-        //length(test2);
+        length(test1);
+        length(test2);
         length(test3);
         length(test4);
         length(test5);
@@ -27,10 +30,12 @@ public class Day11 {
         // 5484 is too high
         // 4453 is too high
         // 2999 is ???
+        // 664  is Correct
     }
 
     private static void length(String[] input) {
         Directions dir = new Directions();
+        List<Integer> length = new ArrayList<>();
 
         for(int i = 0; i < input.length; i++) {
             if(input[i].equals("n")) {
@@ -51,9 +56,14 @@ public class Day11 {
             else if(input[i].equals("nw")) {
                 dir.incNorthWest();
             }
+
+            length.add(dir.calculateLength());
         }
 
         dir.calculateLength();
+
+        System.out.println(Collections.max(length));
+        System.out.println(Collections.min(length));
     }
 
 

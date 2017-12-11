@@ -8,15 +8,48 @@ public class Directions {
     private int northWest = 0;
 
 
-    public void calculateLength(){
+    public int calculateLength(){
 
         opposites();
+        combine();
 
-        System.out.println(north + northEast + southEast + south + southWest + northWest);
+        int all = north + northEast + southEast + south + southWest + northWest;
+
+        System.out.println(all);
+        return all;
     }
 
     private void combine() {
-
+        while(north > 0 && southEast > 0) {
+            north--;
+            southEast--;
+            northEast++;
+        }
+        while(northEast > 0 && south > 0) {
+            northEast--;
+            south--;
+            southEast++;
+        }
+        while(southEast > 0 && southWest > 0) {
+            southEast--;
+            southWest--;
+            south++;
+        }
+        while(south > 0 && northWest > 0) {
+            south--;
+            northWest--;
+            southWest++;
+        }
+        while(southWest > 0 && north > 0) {
+            southWest--;
+            north--;
+            northWest++;
+        }
+        while(northWest > 0 && northEast > 0) {
+            northWest--;
+            northEast--;
+            north++;
+        }
     }
 
     private void opposites() {
