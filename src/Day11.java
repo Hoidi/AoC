@@ -11,6 +11,15 @@ public class Day11 {
         String[] test4 = {"se","sw","se","sw","sw"};
         String[] test5 = {"n","n","s","s"};
 
+
+        length(test1);
+        length(test2);
+        length(test3);
+        length(test4);
+        length(test5);
+
+        System.out.println("3, 0, 2, 3, 0");
+
         length(input);
 
 

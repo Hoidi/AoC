@@ -11,8 +11,16 @@ public class Directions {
 
 
     public void calculateLength(){
-        compare();
 
+        opposites();
+        combine();
+
+
+        System.out.println(north + northEast + east + southEast + south + southWest + west +
+                northWest);
+    }
+
+    private void combine() {
         while(north > 0 && east > 0) {
             north--;
             east--;
@@ -33,7 +41,6 @@ public class Directions {
             north--;
             northWest++;
         }
-        compare();
         while(northWest > 0 && northEast > 0) {
             northWest--;
             northEast--;
@@ -54,14 +61,10 @@ public class Directions {
             southWest--;
             west++;
         }
-        compare();
 
-
-        System.out.println(north + northEast + east + southEast + south + southWest + west +
-                northWest);
     }
 
-    private void compare() {
+    private void opposites() {
         if(north >= south && south > 0) {
             north -= south;
         } else if (south >= north && north > 0) {
