@@ -19,18 +19,36 @@ public class Day12 {
         HashMap<String, List<String>> map = new HashMap<>();
 
         for(int row = 0; row < matrix.length; row++) {
+            List<String> relateTo = new ArrayList<>();
+            for(int i = 1; i < matrix[row].length; i++) {
+                relateTo.add(matrix[row][i]);
+            }
+            relateTo.add(matrix[row][0]);
+            map.put(matrix[row][0],relateTo);
+        }
+
+
+        for(int row = 0; row < matrix.length; row++) {
             for(int i = 0; i < matrix[row].length; i++) {
                 String currentNumber = matrix[row][i];
-                List<List> totalList = new ArrayList<>();
+                List<String> totalList = new ArrayList<>();
                 List<String> wantToVisit = new ArrayList<>();
-                if(!map.containsKey(currentNumber)) {
-                    map.put(currentNumber,null);
-                }
-                for(int j = 1; j < matrix[i].length; j++) {
-                    wantToVisit.add(matrix[row][j]);
-                }
+                List<String> visited = new ArrayList<>();
+
+                wantToVisit.addAll(map.get("0"));
+
                 do {
-                    //TODO: Add and do a bunch of number to wantToVisit
+                    String addThis = wantToVisit.get(0);
+                    visited.add(addThis);
+                    wantToVisit.remove(0);
+                    for(int x = 0; x < map.get(addThis).size(); x++) {
+                        if(!visited.contains(map.get(addThis).get(x))) {
+                            visited.add(map.get(addThis).get(x));
+                        }
+                    }
+                    // TODO: Add and do a bunch of number to wantToVisit
+                    // check their relations and add all those to totalList
+
                 }while (wantToVisit.size() > 0);
 
             }
