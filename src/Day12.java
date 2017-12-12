@@ -37,7 +37,6 @@ public class Day12 {
                 map.put(currentNumber,totalList);   // Everything is added to everything
             }
         }
-
         // Now all elements are done
         return map;
     }
