@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Day12 {
 
@@ -18,23 +15,57 @@ public class Day12 {
 
     }
 
-    private static HashMap<String,List<String>> createMap(String[][] matrix) {
-        HashMap<String,List<String>> map = new HashMap<>();
-        for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix[i].length; j++) {   // This for each number
-                String currentNumber = matrix[i][j];
-                if(map.containsKey(currentNumber)){
+    private static HashMap<String,List<String>> createMap2(String[][] matrix) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for(int row = 0; row < matrix.length; row++) {
+            for(int i = 0; i < matrix[row].length; i++) {
+                String currentNumber = matrix[row][i];
+                List<List> totalList = new ArrayList<>();
+                List<String> wantToVisit = new ArrayList<>();
+                if(!map.containsKey(currentNumber)) {
                     map.put(currentNumber,null);
                 }
-                List<String> myList = new ArrayList<>(Arrays.asList(matrix[i]));
-                List<String> totalList = new ArrayList<>(myList);
-                totalList.addAll(map.get(currentNumber));
-
-                for(int k = 0; k < matrix[i].length; k++) {   // This for each number
-                    totalList.addAll(map.get(matrix[i][k]));
+                for(int j = 1; j < matrix[i].length; j++) {
+                    wantToVisit.add(matrix[row][j]);
                 }
+                do {
+                    //TODO: Add and do a bunch of number to wantToVisit
+                }while (wantToVisit.size() > 0);
 
-                map.put(currentNumber,totalList);   // Everything is added to everything
+            }
+        }
+
+
+
+        return map;
+    }
+
+    private static HashMap<String,List<String>> createMap(String[][] matrix) {
+        HashMap<String,List<String>> map = new HashMap<>();
+        for(int i = 0; i < matrix.length; i++) {    // Each row
+            List<String> totalList = new ArrayList<>(Arrays.asList(matrix[i]));
+
+            for(int j = 0; j < matrix[i].length; j++) {
+                String currentNumber = matrix[i][j];
+                if(!map.containsKey(currentNumber)) {
+                    map.put(currentNumber, null);
+                }
+                totalList.add(currentNumber);
+                if(map.get(currentNumber) != null) {
+                    totalList.addAll(map.get(currentNumber));
+                }
+            }
+            for(int j = 0; j < matrix[i].length; j++) {
+                String currentNumber = matrix[i][j];
+                Set<String> hs = new HashSet<>();
+                hs.addAll(totalList);
+                totalList.clear();
+                totalList.addAll(hs);
+                map.replace(currentNumber,totalList);
+                for(int list = 0; list < map.get(currentNumber).size(); list++) {
+                    //map.replace(Integer.toString(list),map.get(currentNumber));
+                }
             }
         }
         // Now all elements are done
@@ -44,10 +75,24 @@ public class Day12 {
     private static void checkRelated(HashMap<String,List<String>> map, String number) {
         List<String> list = map.get(number); // List of all numbers relating to 0
 
+
+        // add elements to list, including duplicates
+        Set<String> hs = new HashSet<>();
+        hs.addAll(list);
+        list.clear();
+        list.addAll(hs);
+
         System.out.println(list.size());
     }
 
     private static String[][] createInput() {
+        String test1 = "0 <-> 2\n" +
+                "1 <-> 1\n" +
+                "2 <-> 0, 3, 4\n" +
+                "3 <-> 2, 4\n" +
+                "4 <-> 2, 3, 6\n" +
+                "5 <-> 6\n" +
+                "6 <-> 4, 5";
         String start = "0 <-> 584, 830\n" +
                 "1 <-> 415, 531\n" +
                 "2 <-> 514, 1419\n" +
@@ -2049,7 +2094,8 @@ public class Day12 {
                 "1998 <-> 626\n" +
                 "1999 <-> 964, 1568\n";
 
-        start.replace(" <-> ",", ");
+        start = test1.replace(" <-> ",", ");
+
 
 
 
