@@ -11,24 +11,41 @@ public class Day12 {
 
         String[][] innput = createInput();
 
-        createMap(innput);
+        HashMap<String,List<String>> myMap;
+        myMap = createMap(innput);
+
+        checkRelated(myMap,"0");
 
     }
 
-    private static void createMap(String[][] matrix) {
+    private static HashMap<String,List<String>> createMap(String[][] matrix) {
         HashMap<String,List<String>> map = new HashMap<>();
         for(int i = 0; i < matrix.length; i++) {
             for(int j = 0; j < matrix[i].length; j++) {   // This for each number
                 String currentNumber = matrix[i][j];
-                List<String> myList = new ArrayList<>(Arrays.asList(matrix[i]));
                 if(map.containsKey(currentNumber)){
                     map.put(currentNumber,null);
                 }
-                map.put(currentNumber,map.get(currentNumber).addAll(myList));
+                List<String> myList = new ArrayList<>(Arrays.asList(matrix[i]));
+                List<String> totalList = new ArrayList<>(myList);
+                totalList.addAll(map.get(currentNumber));
 
+                for(int k = 0; k < matrix[i].length; k++) {   // This for each number
+                    totalList.addAll(map.get(matrix[i][k]));
+                }
+
+                map.put(currentNumber,totalList);   // Everything is added to everything
             }
-
         }
+
+        // Now all elements are done
+        return map;
+    }
+
+    private static void checkRelated(HashMap<String,List<String>> map, String number) {
+        List<String> list = map.get(number); // List of all numbers relating to 0
+
+        System.out.println(list.size());
     }
 
     private static String[][] createInput() {
