@@ -9,7 +9,7 @@ public class Day12 {
         String[][] innput = createInput();
 
         HashMap<String,List<String>> myMap;
-        myMap = createMap(innput);
+        myMap = createMap2(innput);
 
         checkRelated(myMap,"0");
 
@@ -31,7 +31,6 @@ public class Day12 {
         for(int row = 0; row < matrix.length; row++) {
             for(int i = 0; i < matrix[row].length; i++) {
                 String currentNumber = matrix[row][i];
-                List<String> totalList = new ArrayList<>();
                 List<String> wantToVisit = new ArrayList<>();
                 List<String> visited = new ArrayList<>();
 
@@ -40,17 +39,21 @@ public class Day12 {
                 do {
                     String addThis = wantToVisit.get(0);
                     visited.add(addThis);
+                    for(int x = 1; x < map.get(addThis).size(); x++) {
+                        if(!wantToVisit.contains(map.get(addThis).get(x))) {
+                            wantToVisit.add(map.get(addThis).get(x));
+                        }
+                    }
                     wantToVisit.remove(0);
                     for(int x = 0; x < map.get(addThis).size(); x++) {
                         if(!visited.contains(map.get(addThis).get(x))) {
                             visited.add(map.get(addThis).get(x));
                         }
                     }
-                    // TODO: Add and do a bunch of number to wantToVisit
-                    // check their relations and add all those to totalList
-
                 }while (wantToVisit.size() > 0);
 
+
+                map.replace("0",visited);
             }
         }
 
@@ -2112,7 +2115,7 @@ public class Day12 {
                 "1998 <-> 626\n" +
                 "1999 <-> 964, 1568\n";
 
-        start = test1.replace(" <-> ",", ");
+        start = start.replace(" <-> ",", ");
 
 
 

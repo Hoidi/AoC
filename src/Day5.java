@@ -1,10 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Day5 {
 
     public static void main(String[] args) {
+        Integer[] input = createInput();
+
+        jump(input);
+
+        // 2113 is too low
 
     }
 
-    private static String[][] createInput() {
+    private static void jump(Integer[] input) {
+        int position = 0;
+        int steps = 0;
+        while(position < input.length) {
+            steps++;
+            int oldPosition = position;
+            position = input[position];
+            input[oldPosition]++;
+            System.out.println(steps);
+            if(position < 0) {
+                position = 0;   // position becomes negative :/
+            }
+        }
+
+        System.out.println(steps);
+    }
+
+    private static Integer[] createInput() {
         String start = "1\n" +
                 "0\n" +
                 "0\n" +
@@ -1043,15 +1068,16 @@ public class Day5 {
                 "-208\n" +
                 "-572\n";
 
-        String[] halfwayThere = start.split("\n");
+        String[] arr = start.split("\n");
 
-        String[][] matrix = new String[halfwayThere.length][];
-        int r = 0;
-        for (String row : halfwayThere) {
-            matrix[r++] = row.split(" ");
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < arr.length; i++) {
+            list.add(Integer.parseInt(arr[i]));
         }
+        Integer[] arr2 = new Integer[list.size()];
+        arr2 = list.toArray(arr2);
 
-        return matrix;
+        return arr2;
     }
 
 }
