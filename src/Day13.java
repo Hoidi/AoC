@@ -53,6 +53,4 @@ public class Day13 {
 
         return map;
     }
-
-
 }
