@@ -1,35 +1,51 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Day13 {
 
     public static void main(String[] args) {
         Map<Integer,boolean[]> input = createMap();
 
+        int result = jumpThrough(input, 0);
+        int result2;
+        int i = 10;
+        while(true) {
+            if(jumpThrough(createMap(),i) == 0) {
+                result2 = i;
+                break;
+            }
+            i++;
+        }
 
-        int result = jumpThrough(input);
 
-        System.out.println(result);
+        System.out.println("part 1: " + result);
+        System.out.println("part 2: " + result2);
     }
 
-    private static int jumpThrough(Map<Integer,boolean[]> map) {
+    private static int jumpThrough(Map<Integer,boolean[]> map, int delay) {
         int step = 0;
         int score = 0;
+        int picoSec = delay;
+        int maxEntry = findMaxMap(map);
         setTrue(map);
 
-        int maxEntry = findMaxMap(map);
+        while(picoSec > 0) {
+            nextTrue(map);
+            picoSec--;
+        }
 
         while (step <= maxEntry) {     // Ends when you've stepped out of the map
-            System.out.println("step: " + step);
+            //System.out.println("step: " + step);
             if(map.containsKey(step) && map.get(step)[1]) {
                 score += (map.get(step).length-1)*step;
-                System.out.println("score: " + score + " updated");
+                //System.out.println("score: " + score + " updated");
             }
 
             nextTrue(map);
             step++;
+            picoSec++;
         }
+        if(score != 2 && score < 100) System.out.println("Score: " + score + "\n" + "Delay; " +
+                delay);
         return score;
     }
 
@@ -78,7 +94,7 @@ public class Day13 {
         String test1 = "0: 3\n" +
                        "1: 2\n" +
                        "4: 4\n" +
-                       "6: 4";
+                       "6: 4";      // 24 answer
 
         String start = "0: 4\n" +
                 "1: 2\n" +
@@ -144,22 +160,6 @@ public class Day13 {
                 // false is up true is down
             }
         }
-
-        /*
-        int maxValueArr = Integer.parseInt(matrix[matrix.length-1][0]);
-        for(int i = 0; i < maxValueArr; i++) {
-            if(!map.containsKey(i)) {
-                map.put(i, new boolean[0]);
-            }
-        }
-
-        for(int i = 0; i < matrix.length; i++) {
-            int currentInt = Integer.parseInt(matrix[i][0]);
-            int currentBol = Integer.parseInt(matrix[i][1]);
-            if(map.containsKey(currentInt)) {
-                map.replace(currentInt,new boolean[currentBol]);
-            }
-        }*/
 
         return map;
     }
