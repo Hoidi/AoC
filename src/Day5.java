@@ -9,6 +9,7 @@ public class Day5 {
         jump(input);
 
         // 2113 is too low
+        // 326563 is too low
 
     }
 
@@ -20,9 +21,8 @@ public class Day5 {
             int oldPosition = position;
             position = input[position];
             input[oldPosition]++;
-            System.out.println(steps);
             if(position < 0) {
-                position = 0;   // position becomes negative :/
+                position = -position;   // position becomes negative :/
             }
         }
 
