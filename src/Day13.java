@@ -44,7 +44,9 @@ public class Day13 {
             step++;
             picoSec++;
         }
-        if(score != 2 && score < 100) System.out.println("Score: " + score + "\n" + "Delay; " +
+        if(score != 2 && score < 100 && delay > 100000) System.out.println("Score: " + score +
+                "\n" +
+                "Delay; " +
                 delay);
         return score;
     }
