@@ -19,8 +19,10 @@ public class Day5 {
         while(position < input.length) {
             steps++;
             int oldPosition = position;
-            position = input[position];
-            input[oldPosition]++;
+            position += input[position];
+            if(input[oldPosition] >= 3) {
+                input[oldPosition]--;
+            } else input[oldPosition]++;
             if(position < 0) {
                 position = -position;   // position becomes negative :/
             }

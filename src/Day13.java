@@ -7,7 +7,7 @@ public class Day13 {
 
         int result = jumpThrough(input, 0);
         int result2;
-        int i = 10;
+        int i = 85000;
         while(true) {
             if(jumpThrough(createMap(),i) == 0) {
                 result2 = i;
