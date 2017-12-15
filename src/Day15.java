@@ -8,7 +8,6 @@ public class Day15 {
     }
 
     private static int countPairs() {
-
         Generator testgenA = new Generator(65,16807,4);
         Generator testgenB = new Generator(8921,48271,8);
 
