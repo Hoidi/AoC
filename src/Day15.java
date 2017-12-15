@@ -8,13 +8,17 @@ public class Day15 {
     }
 
     private static int countPairs() {
-        Generator genA = new Generator(289,16807);
-        Generator genB = new Generator(629,48271);
+
+        Generator testgenA = new Generator(65,16807,4);
+        Generator testgenB = new Generator(8921,48271,8);
+
+        Generator genA = new Generator(289,16807,4);
+        Generator genB = new Generator(629,48271,8);
         int score = 0;
 
-        int genTimes = 40000000;
-        int valueA = 0;
-        int valueB = 0;
+        int genTimes = 5000000;//40000000;
+        long valueA = 0;
+        long valueB = 0;
 
         for(int i = 0; i < genTimes; i++) {
             valueA = genA.generateNextValue();
@@ -22,8 +26,11 @@ public class Day15 {
 
             // 2^16 = 65536
 
-            // TODO: Does the first 16 bits match? Then do score++
-            // Convert to binary. Divide my 2^16 and check if the remainder is equal
+            int bin = 0b1111111111111111;
+
+            if((valueA & bin) == (valueB & bin)) {
+                score++;
+            }
         }
 
         return score;

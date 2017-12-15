@@ -1,16 +1,25 @@
 public class Generator {
 
-    private int value;
+    private long value;
     private int factor;
     private int div = 2147483647;
+    private int divisible;
 
-    public Generator(int startingValue, int factor) {
+    public Generator(int startingValue, int factor, int divisible) {
         value = startingValue;
         this.factor = factor;
+        this.divisible = divisible;
     }
 
-    public int generateNextValue() {
-        value = (value*factor) % div;
+    public long generateNextValue() {
+        do {
+            xd();
+        } while(value % divisible != 0);
 
+        return value;
+    }
+
+    private void xd() {
+        value = (value*factor) % div;
     }
 }
