@@ -1,3 +1,5 @@
+package Y2017;
+
 import java.util.*;
 
 public class Day12 {

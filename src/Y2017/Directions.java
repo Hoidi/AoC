@@ -1,3 +1,5 @@
+package Y2017;
+
 public class Directions {
 
     private int north = 0;

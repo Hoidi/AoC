@@ -1,3 +1,5 @@
+package Y2017;
+
 public class Generator {
 
     private long value;
