@@ -33,9 +33,9 @@ public class Day1 {
 
         for(String string : lines) {
             if(map.get(sum) != null) {
-                if(map.get(sum))
-                    //return sum;
-                    map.put(sum,true);
+                //if(map.get(sum))
+                    return sum;
+                    //map.put(sum,true);
             } else {
                 map.put(sum,false);
             }
@@ -47,11 +47,11 @@ public class Day1 {
             }
         }
 
-        for(Integer integer : map.keySet()) {
+        /*for(Integer integer : map.keySet()) {
             if(map.get(integer)) {
                 return integer;
             }
-        }
+        }*/
         calculateFreq(lines);
 
         return sum;
