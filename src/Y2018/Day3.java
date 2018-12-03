@@ -4,44 +4,50 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 public class Day3 {
 
     public static void main(String[] args) {
-        List<String> lines = null;
+        List<String> lines = new ArrayList<>();
         try {
-            lines = Files.readAllLines(Paths.get("C:\\Users\\Tobias\\Documents\\AoC\\src\\Y2018\\Day3.txt"), Charset.defaultCharset());
+            lines = Files.readAllLines(Paths.get("D:\\Users\\Tobias\\Documents\\GitHub\\AoC\\src\\Y2018\\Day3.txt"), Charset.defaultCharset());
         } catch(IOException e) {
             e.printStackTrace();
         }
 
-        /*
-        lines.clear();
+
+        /*lines.clear();
         lines.add("#1 @ 1,3: 4x4");
         lines.add("#2 @ 3,1: 4x4");
         lines.add("#3 @ 5,5: 2x2");*/
 
-        System.out.println(findOverlapping(lines));
+        System.out.println("Result: " + findOverlapping(lines));
     }
 
     private static int findOverlapping(List<String> lines) {
-        //List<List<Integer>> fabric = new ArrayList<>(1000);
+        List<List<List<Integer>>> fabricList = new ArrayList<List<List<Integer>>>(1000);
+        Map<Integer,List<Position>> mapId = new HashMap<>(2000);
+        Map<Position,List<Integer>> mapPos = new HashMap<>(1000000);
         int[][] fabric = new int[1000][1000];
-        //Fabric fabric = new Fabric();
 
         for(String string : lines) {
-            //string.matches("#"+"1-2000"+" @ "+"0-2000"+","+"0-1000"+": "+"0-1000"+"x"+"0-1000");
             StringBuilder stringBuilder = new StringBuilder(string);
             StringBuilder startX = new StringBuilder();
             StringBuilder startY = new StringBuilder();
             StringBuilder sizeX = new StringBuilder();
             StringBuilder sizeY = new StringBuilder();
-            for(int i = 0; i < stringBuilder.length(); i++) {
-                //stringBuilder.deleteCharAt(i);
+
+            StringBuilder id = new StringBuilder();
+            boolean fistTime = true;
+            for(int i = 1; i < stringBuilder.length(); i++) {
+                while (fistTime && stringBuilder.charAt(i) != ' ') {
+                    id.append(stringBuilder.charAt(i));
+                    i++;
+                }
+                fistTime = false;
                 if(string.charAt(i) == '@') {
-                    //stringBuilder.deleteCharAt(i); // removes a space
                     i++;
                     i++;
                     while (stringBuilder.charAt(i) != ',') {
@@ -53,7 +59,6 @@ public class Day3 {
                         startY.append(stringBuilder.charAt(i));
                         i++;
                     }
-                    //stringBuilder.deleteCharAt(i); // removes a space
                     i++;
                     i++;
                     while (stringBuilder.charAt(i) != 'x') {
@@ -66,8 +71,6 @@ public class Day3 {
                         i++;
                     }
                     break;
-                } else {
-                    //stringBuilder = stringBuilder.deleteCharAt(i);
                 }
             }
             int iStartX = Integer.parseInt(startX.toString());
@@ -78,9 +81,18 @@ public class Day3 {
             for (int i = 0; i < iSizeX; i++) {
                 for (int j = 0; j < iSizeY; j++) {
                     fabric[iStartX+i][iStartY+j] += 1;
+                    Position thisPosition = new Position(iStartX+i,iStartY+j);
+                    if(mapId.get(Integer.parseInt(id.toString())) == null) {
+                        mapId.put(Integer.parseInt(id.toString()),new ArrayList<>());
+                    }
+                    mapId.get(Integer.parseInt(id.toString())).add(thisPosition);
+
+                    if(mapPos.get(thisPosition) == null) {
+                        mapPos.put(thisPosition,new ArrayList<>());
+                    }
+                    mapPos.get(thisPosition).add(Integer.parseInt(id.toString()));
                 }
             }
-
         }
 
         int result = 0;
@@ -93,14 +105,43 @@ public class Day3 {
             }
         }
 
+        for(Position pos: mapPos.keySet()) {
+            List<Integer> list = mapPos.get(pos);
+            if(list.size() > 1) {
+                for(Integer integer : list) {
+                    mapId.remove(integer);
+                }
+            }
+        }
+
+        for(Integer integer : mapId.keySet()) {
+            System.out.println(integer);
+        }
+
         return result;
     }
 }
 
-/*class Fabric {
-    List<List<Integer>> fabric = new ArrayList<>();
-    int needleX, needleY = 0;
+class Position {
+    int x;
+    int y;
 
-    Fabric() {
+    Position(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
-}*/
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x &&
+                y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+}
