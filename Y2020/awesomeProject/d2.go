@@ -8,7 +8,7 @@ import (
 )
 
 func D2() {
-	s := OnPage("https://adventofcode.com/2020/day/2/input") // get input to string
+	s := OnPage("2","\n") // get input to string
 
 	//s = []string{"1-3 a: abcde","1-3 b: cdefg","2-9 c: ccccccccc"}
 
